@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Property Management</title>
+    <script>
+        async function fetchProperties() {
+            const response = await fetch('/properties');
+            const properties = await response.json();
+            const list = document.getElementById('propertyList');
+            list.innerHTML = '';
+            properties.forEach(property => {
+                const item = document.createElement('li');
+                item.textContent = `${property.address} - $${property.price}`;
+                list.appendChild(item);
+            });
+        }
+
+        async function addProperty() {
+            const address = document.getElementById('address').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const size = parseFloat(document.getElementById('size').value);
+            const description = document.getElementById('description').value;
+
+            const property = { address, price, size, description };
+            await fetch('/properties', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(property),
+            });
+            fetchProperties();
+        }
+    </script>
+</head>
+<body onload="fetchProperties()">
+<h1>Property Management</h1>
+<h2>Add Property</h2>
+<input id="address" placeholder="Address" required>
+<input id="price" type="number" placeholder="Price" required>
+<input id="size" type="number" placeholder="Size" required>
+<input id="description" placeholder="Description">
+<button onclick="addProperty()">Add</button>
+
+<h2>Property List</h2>
+<ul id="propertyList"></ul>
+</body>
+</html>
