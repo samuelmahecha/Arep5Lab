@@ -1,8 +1,7 @@
 package org.example;
 
-import org.springframework.data.repository.CrudRepository;
-import java.util.List;
 
-public interface PropertyRepository extends CrudRepository<Property, Long> {
-    List<Property> findByAddress(String address); // O cualquier otro método que necesites
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PropertyRepository extends JpaRepository<Property, Long> {
 }

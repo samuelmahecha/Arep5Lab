@@ -4,20 +4,25 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import lombok.Getter;
+import lombok.Setter;
 @Entity
+@Getter
+@Setter
 public class Property {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String address;
     private double price;
     private double size;
     private String description;
 
+    // Default constructor
     protected Property() {}
 
+    // Constructor with parameters
     public Property(String address, double price, double size, String description) {
         this.address = address;
         this.price = price;
